@@ -150,23 +150,53 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to access th
 
 The main entry point featuring customer testimonials, motorcycle showcase, and WhatsApp contact integration for inquiries.
 
+![Landing Page](/public/readme/readme-1.png)
+
 ### Admin Dashboard
 
 The comprehensive dashboard provides:
 
-- **Main Dashboard (Halaman Utama)**: Overview of key metrics, expiring inventory alerts, and quick access to main functions
-- **Inventory Management (Data Stok)**: Complete motorcycle listing with status tracking, prices, and quick actions for editing or deleting items
-- **Add/Edit Motorcycle**: Form interface for adding new motorcycles or updating existing inventory with detailed information
-- **Transactions (Transaksi)**: View, create, and manage all motorcycle sales with customer details and payment status
-- **Transaction Management**: Create new transactions with customer information, pricing, and installment calculations
-- **User Management**: Admin control panel for managing user accounts and permissions
-- **Motor Types (Jenis Motor)**: Category management for different motorcycle models
-- **Reports (Laporan)**: Analytics and transaction history with PDF export capabilities
-- **Installment Calculator (Kalkulator)**: Tool for calculating payment schedules and monthly installments
+#### Main Dashboard (Halaman Utama)
 
-### Authentication
+Overview of key metrics, expiring inventory alerts, and quick access to main functions.
 
-Login page with secure credential validation for admin dashboard access.
+![Main Dashboard](/public/readme/readme-2.png)
+
+#### Inventory Management (Data Stok)
+
+Complete motorcycle listing with status tracking, prices, and quick actions for editing or deleting items.
+
+![Inventory Management](/public/readme/readme-3.png)
+
+#### Add/Edit Motorcycle
+
+Form interface for adding new motorcycles or updating existing inventory with detailed information.
+
+![Add/Edit Motorcycle](/public/readme/readme-4.png)
+
+#### Transactions (Transaksi)
+
+View, create, and manage all motorcycle sales with customer details and payment status.
+
+![Transactions List](/public/readme/readme-5.png)
+
+#### Transaction Management
+
+Create new transactions with customer information, pricing, and installment calculations.
+
+![Transaction Management](/public/readme/readme-6.png)
+
+#### User Management
+
+Admin control panel for managing user accounts and permissions.
+
+![User Management](/public/readme/readme-7.png)
+
+#### Additional Features
+
+Motor Types management, Reports & Analytics, and Installment Calculator.
+
+![Additional Features](/public/readme/readme-8.png)
 
 ## Key Components
 
