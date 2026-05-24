@@ -142,7 +142,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to access th
 - `npm run dev` - Start development server with hot reload
 - `npm run build` - Build for production
 - `npm start` - Start production server
-- `npm run lint` - Run ESLint code quality checks
 
 ## Screenshots
 
