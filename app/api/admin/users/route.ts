@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "../admin-client";
 import { requireAuth } from "../auth-util";
-import { error } from "console";
 
 type CreateUserPayload = {
   email: string;
   password: string;
-  role: "admin" | "sales" | "other";
+  role: "admin" | "pemilik";
 };
 
 export async function GET() {
@@ -37,7 +36,7 @@ export async function GET() {
     const users = (data?.users || []).map((user) => ({
       id: user.id,
       email: user.email || "",
-      role: (user.user_metadata?.role as string) || "other",
+      role: (user.user_metadata?.role as "admin" | "pemilik") || "pemilik",
     }));
 
     return NextResponse.json(
@@ -86,6 +85,7 @@ export async function POST(request: Request) {
       email: payload.email,
       password: payload.password,
       email_confirm: true,
+      user_metadata: { role: payload.role },
     });
 
     console.log("[POST /api/admin/users] createUser response:", {

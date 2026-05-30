@@ -1,8 +1,11 @@
 "use client";
 
+export type UserRole = "admin" | "pemilik";
+
 export type User = {
   id: string;
   email: string;
+  role: UserRole;
 };
 
 // Fetch all users from the API route
@@ -38,6 +41,7 @@ export const getUserList = async () => {
 export const createUser = async (payload: {
   email: string;
   password: string;
+  role: UserRole;
 }) => {
   try {
     const response = await fetch("/api/admin/users", {
@@ -75,6 +79,7 @@ export const updateUser = async (payload: {
   id: string;
   email?: string;
   password?: string;
+  role?: UserRole;
 }) => {
   try {
     const { id, ...updateData } = payload;

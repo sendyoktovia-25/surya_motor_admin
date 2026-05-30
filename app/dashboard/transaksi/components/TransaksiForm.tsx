@@ -150,7 +150,7 @@ export const TransaksiForm = ({
     const motor = motors.find((m) => m.id === data.motor_id);
 
     if (!motor) {
-      addToast({ color: "danger", title: "Motor tidak ditemukan" });
+      addToast({ color: "danger", title: "Sepeda Motor tidak ditemukan" });
       setIsLoading(false);
       return;
     }
@@ -333,8 +333,8 @@ export const TransaksiForm = ({
           <CardBody className="gap-4 p-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Select
-                label="Motor"
-                placeholder="Pilih motor"
+                label="Sepeda Motor"
+                placeholder="Pilih sepeda motor"
                 defaultSelectedKeys={[transaksi?.motor_id ?? ""]}
                 name="motor_id"
                 onSelectionChange={(keys) => {
@@ -398,7 +398,7 @@ export const TransaksiForm = ({
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div className="flex flex-col">
                         <span className="text-default-500">
-                          Harga Modal Motor
+                          Harga Modal Sepeda Motor
                         </span>
                         <span className="font-semibold text-sm">
                           {new Intl.NumberFormat("id-ID", {
@@ -410,7 +410,7 @@ export const TransaksiForm = ({
                       </div>
                       <div className="flex flex-col">
                         <span className="text-default-500">
-                          Biaya Servis Motor
+                          Biaya Servis Sepeda Motor
                         </span>
                         <span className="font-semibold text-sm">
                           {new Intl.NumberFormat("id-ID", {

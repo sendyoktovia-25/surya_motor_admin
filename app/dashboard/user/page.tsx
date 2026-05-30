@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Plus, SearchSm, DotsVertical } from "@untitledui/icons";
+import { Plus, DotsVertical } from "@untitledui/icons";
 import {
   Table,
   TableHeader,
@@ -21,6 +21,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Spinner,
+  Chip,
   addToast,
 } from "@heroui/react";
 import { User, getUserList, deleteUser } from "@/app/store/UserStore";
@@ -28,6 +29,7 @@ import { UserForm } from "./components/UserForm";
 
 const columns = [
   { name: "Email", uid: "email" },
+  { name: "Role", uid: "role" },
   { name: "Aksi", uid: "actions" },
 ];
 
@@ -70,7 +72,6 @@ export default function UserPage() {
     }
   };
 
-  // Handle delete
   const handleDelete = async () => {
     try {
       if (!selectedItem) return;
@@ -99,6 +100,15 @@ export default function UserPage() {
     switch (columnKey) {
       case "email":
         return <span className="font-medium">{user.email}</span>;
+      case "role":
+        return (
+          <Chip
+            size="sm"
+            color={user.role === "pemilik" ? "primary" : "default"}
+            variant="flat">
+            {user.role === "pemilik" ? "Pemilik" : "Admin"}
+          </Chip>
+        );
       case "actions":
         return (
           <Dropdown className="bg-background border-1 border-default-200">
@@ -109,13 +119,21 @@ export default function UserPage() {
             </DropdownTrigger>
             <DropdownMenu>
               <DropdownItem
+                key="edit"
+                onClick={() => {
+                  setSelectedItem(user);
+                  onUserFormOpen();
+                }}>
+                Edit
+              </DropdownItem>
+              <DropdownItem
                 key="delete"
                 color="danger"
                 onClick={() => {
                   setSelectedItem(user);
                   onDeleteOpen();
                 }}>
-                Delete
+                Hapus
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
@@ -123,11 +141,10 @@ export default function UserPage() {
       default:
         return "";
     }
-  }, []);
+  }, [onUserFormOpen, onDeleteOpen]);
 
   return (
     <section className="pb-6 flex flex-col gap-4">
-      {/* Table */}
       {isLoading ? (
         <div className="flex justify-center py-8">
           <Spinner color="primary" />
@@ -143,7 +160,6 @@ export default function UserPage() {
                 color="primary"
                 variant="solid"
                 size="md"
-                isIconOnly={false}
                 onPress={onUserFormOpen}
                 startContent={<Plus />}
                 className="mt-2 w-fit">

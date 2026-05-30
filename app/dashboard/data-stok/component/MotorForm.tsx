@@ -27,7 +27,7 @@ export const MotorForm = ({ defaultValue }: { defaultValue: Motor | null }) => {
   );
   const { get } = useJenisMotorStore();
   const { create, update } = useMotorStore();
-  const title = defaultValue ? "Edit Motor" : "Tambah Motor";
+  const title = defaultValue ? "Edit Sepeda Motor" : "Tambah Sepeda Motor";
   const description = defaultValue
     ? "Perbarui informasi kendaraan"
     : "Tambahkan kendaraan baru ke stok motor";
@@ -90,7 +90,7 @@ export const MotorForm = ({ defaultValue }: { defaultValue: Motor | null }) => {
         <Card shadow="none" className="border border-slate-200 w-full">
           <CardHeader className="flex gap-3 p-4 justify-between">
             <div className="flex flex-col">
-              <p className="text-lg font-semibold">Data Motor</p>
+              <p className="text-lg font-semibold">Data Sepeda Motor</p>
               <p className="text-small text-default-500">
                 Informasi utama kendaraan
               </p>
@@ -109,7 +109,7 @@ export const MotorForm = ({ defaultValue }: { defaultValue: Motor | null }) => {
                 { key: "tersedia", color: "success" },
                 { key: "negosiasi", color: "warning" },
               ]}
-              label="Status Motor"
+              label="Status Sepeda Motor"
               renderValue={(items) => {
                 return items.map((status) => {
                   return (
@@ -141,7 +141,7 @@ export const MotorForm = ({ defaultValue }: { defaultValue: Motor | null }) => {
 
               <Select
                 defaultSelectedKeys={[defaultValue?.jenis_motor_id || ""]}
-                label="Jenis Motor"
+                label="Jenis Sepeda Motor"
                 name="jenis_motor_id"
                 placeholder="Pilih jenis motor"
                 items={jenisOptions}
@@ -286,11 +286,11 @@ export const MotorForm = ({ defaultValue }: { defaultValue: Motor | null }) => {
           </CardBody>
         </Card>
 
-        {/* Histori Motor Section */}
+        {/* Riwayat Sepeda Motor Section */}
         <Card shadow="none" className="border border-slate-200 w-full">
           <CardHeader className="p-4">
             <div className="flex flex-col">
-              <p className="text-lg font-semibold">Histori Motor</p>
+              <p className="text-lg font-semibold">Riwayat Sepeda Motor</p>
               <p className="text-small text-default-500">
                 Riwayat dan kondisi kendaraan
               </p>
@@ -349,7 +349,7 @@ export const MotorForm = ({ defaultValue }: { defaultValue: Motor | null }) => {
             Batal
           </Button>
           <Button color="primary" type="submit" isLoading={isLoading}>
-            Simpan Motor
+            Simpan Sepeda Motor
           </Button>
         </div>
       </Form>

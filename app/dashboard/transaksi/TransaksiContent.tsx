@@ -454,7 +454,7 @@ export default function TransaksiContent({ page }: { page: number }) {
                     </div>
                   </AccordionItem>
 
-                  <AccordionItem key="info" title="Info Motor">
+                  <AccordionItem key="info" title="Info Sepeda Motor">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="flex flex-col">
                         <span className="text-sm text-slate-600">
@@ -464,7 +464,7 @@ export default function TransaksiContent({ page }: { page: number }) {
                       </div>
                       <div className="flex flex-col">
                         <span className="text-sm text-slate-600">
-                          Jenis Motor
+                          Jenis Sepeda Motor
                         </span>
                         <span>
                           {selectedItem?.motor?.jenis_motor.kode} -{" "}

@@ -5,7 +5,7 @@ import { requireAuth } from "../../auth-util";
 type UpdateUserPayload = {
   email?: string;
   password?: string;
-  role?: "admin" | "sales" | "other";
+  role?: "admin" | "pemilik";
 };
 
 export async function PATCH(

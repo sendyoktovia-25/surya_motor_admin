@@ -12,42 +12,42 @@ const TESTIMONIALS = [
   {
     initial: "A",
     name: "Agus Prasetyo",
-    role: "Pembeli Motor NMAX",
+    role: "Pembeli Sepeda Motor NMAX",
     text: "Pelayanan cepat dan motor dalam kondisi sangat baik. Proses administrasi juga rapi. Sangat puas dan tidak kecewa!",
     stars: 5,
   },
   {
     initial: "S",
     name: "Siti Rahayu",
-    role: "Pembeli Motor Aerox",
-    text: "Harga transparan dan nego fleksibel. Motor yang saya beli sesuai ekspektasi. Terima kasih Surya Jaya Motor!",
+    role: "Pembeli Sepeda Motor Aerox",
+    text: "Harga transparan dan nego fleksibel. Sepeda Motor yang saya beli sesuai ekspektasi. Terima kasih Surya Jaya Motor!",
     stars: 5,
   },
   {
     initial: "R",
     name: "Rudi Hartono",
-    role: "Pembeli Motor Vario",
-    text: "Rekomendasi untuk yang cari motor bekas. Test ride dan cek kondisi dibuat mudah. Pelayanan ramah.",
+    role: "Pembeli Sepeda Motor Vario",
+    text: "Rekomendasi untuk yang cari sepeda motor bekas. Test ride dan cek kondisi dibuat mudah. Pelayanan ramah.",
     stars: 5,
   },
   {
     initial: "D",
     name: "Diana Kusuma",
-    role: "Pembeli Motor Beat",
-    text: "Prosesnya mudah dan cepat. Surat-surat lengkap, tidak ada masalah. Mau beli lagi kalau butuh motor.",
+    role: "Pembeli Sepeda Motor Beat",
+    text: "Prosesnya mudah dan cepat. Surat-surat lengkap, tidak ada masalah. Mau beli lagi kalau butuh sepeda motor.",
     stars: 5,
   },
   {
     initial: "H",
     name: "Hendra Wijaya",
-    role: "Pembeli Motor PCX",
-    text: "Motor bekas tapi kondisi prima. Harga sesuai pasaran bahkan lebih murah. Sangat worth it!",
+    role: "Pembeli Sepeda Motor PCX",
+    text: "Sepeda Motor bekas tapi kondisi prima. Harga sesuai pasaran bahkan lebih murah. Sangat worth it!",
     stars: 5,
   },
   {
     initial: "F",
     name: "Fitri Anggraini",
-    role: "Pembeli Motor Scoopy",
+    role: "Pembeli Sepeda Motor Scoopy",
     text: "Staff yang membantu sangat ramah dan informatif. Tidak ada tekanan, bisa milih santai. Top!",
     stars: 5,
   },
@@ -347,15 +347,15 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}>
             <span className="inline-block bg-yellow-500/20 text-yellow-300 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wide">
-              #1 Motor Bekas Terpercaya di Batam
+              #1 Sepeda Motor Bekas Terpercaya di Batam
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-              Motor Bekas Berkualitas,{" "}
+              Sepeda Motor Bekas Berkualitas,{" "}
               <span className="text-yellow-400">Harga Terbaik</span>
             </h1>
             <p className="text-gray-300 text-lg leading-relaxed mb-8">
               Kondisi terverifikasi, surat lengkap, proses cepat — siap test
-              ride dan nego. Temukan motor impian Anda sekarang.
+              ride dan nego. Temukan sepeda motor impian Anda sekarang.
             </p>
             <div className="flex flex-wrap gap-4">
               <a
@@ -378,7 +378,7 @@ export default function Home() {
             <div className="flex items-center gap-8 mt-10">
               <div>
                 <p className="text-2xl font-extrabold text-white">200+</p>
-                <p className="text-gray-400 text-sm">Motor Terjual</p>
+                <p className="text-gray-400 text-sm">Sepeda Motor Terjual</p>
               </div>
               <div className="w-px h-10 bg-white/20" />
               <div>
@@ -401,7 +401,7 @@ export default function Home() {
             <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
               <Image
                 src="/hero.jpeg"
-                alt="Motor Bekas Batam"
+                alt="Sepeda Motor Bekas Batam"
                 fill
                 className="object-cover"
               />
@@ -736,10 +736,10 @@ export default function Home() {
         className="bg-linear-to-r from-yellow-400 to-amber-500 py-16 scroll-mt-24">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-extrabold text-gray-900 mb-4">
-            Siap Cari Motor Impian Anda?
+            Siap Cari Sepeda Motor Impian Anda?
           </h2>
           <p className="text-gray-900/70 mb-8">
-            Hubungi kami sekarang dan temukan motor bekas terbaik di Batam
+            Hubungi kami sekarang dan temukan sepeda motor bekas terbaik di Batam
             dengan harga terjangkau.
           </p>
           <a

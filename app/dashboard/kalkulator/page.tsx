@@ -18,6 +18,7 @@ import {
   TableCell,
   Spinner,
 } from "@heroui/react";
+import { generatePdfWithHeader, openPdfInNewTab } from "@/utils/pdf-generator";
 
 function formatRupiah(value: number) {
   return new Intl.NumberFormat("id-ID").format(Math.round(value));
@@ -113,6 +114,46 @@ export default function Kalkulator() {
       }
     }
     return 0;
+  };
+
+  const handleExportPDF = async () => {
+    const tenors = [6, 9, 12, 15, 18, 21, 24];
+
+    let logoImageUrl: string | undefined;
+    try {
+      const res = await fetch("/sjm_logo.png");
+      const blob = await res.blob();
+      logoImageUrl = URL.createObjectURL(blob);
+    } catch {}
+
+    const columns = ["Keterangan", "Nilai"];
+    const tableData: string[][] = [
+      ["Harga Jual", `Rp ${formatRupiah(hargaJual)}`],
+      ["DP (Uang Muka)", `Rp ${formatRupiah(dpNominal)}`],
+      ["Pencairan", `Rp ${formatRupiah(pencairan)}`],
+      ["", ""],
+      ...tenors.map((t) => [
+        `Tenor ${t} Bulan`,
+        `Rp ${formatRupiah(angsuranPerBulan[t] ?? 0)} / bulan`,
+      ]),
+    ];
+
+    const doc = await generatePdfWithHeader(
+      { title: "Simulasi Kredit", logoImageUrl },
+      tableData,
+      columns,
+      {
+        0: { halign: "left" as const, cellWidth: 70 },
+        1: { halign: "right" as const, cellWidth: 110 },
+      },
+    );
+
+    openPdfInNewTab(
+      doc,
+      `simulasi-kredit-${new Date().toISOString().split("T")[0]}.pdf`,
+    );
+
+    if (logoImageUrl) URL.revokeObjectURL(logoImageUrl);
   };
 
   const handleHitung = () => {
@@ -246,13 +287,18 @@ export default function Kalkulator() {
 
       {/* Results Section */}
       <Card shadow="none" className="border border-slate-200 w-full">
-        <CardHeader className="flex gap-3 p-4">
+        <CardHeader className="flex gap-3 p-4 justify-between">
           <div className="flex flex-col">
             <p className="text-lg font-semibold">Tabel Angsuran Kredit</p>
             <p className="text-small text-default-500">
               Cicilan bulanan berdasarkan tenor yang dipilih
             </p>
           </div>
+          {calculated && (
+            <Button color="primary" size="lg" onPress={handleExportPDF}>
+              Export PDF
+            </Button>
+          )}
         </CardHeader>
         <Divider />
 

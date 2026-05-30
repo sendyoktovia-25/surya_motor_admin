@@ -4,6 +4,8 @@ import { useState } from "react";
 import {
   Input,
   Button,
+  Select,
+  SelectItem,
   addToast,
   Form,
   Modal,
@@ -12,7 +14,12 @@ import {
   ModalBody,
   ModalFooter,
 } from "@heroui/react";
-import { User, createUser, updateUser } from "@/app/store/UserStore";
+import { User, UserRole, createUser, updateUser } from "@/app/store/UserStore";
+
+const ROLE_OPTIONS: { key: UserRole; label: string }[] = [
+  { key: "admin", label: "Admin" },
+  { key: "pemilik", label: "Pemilik" },
+];
 
 export const UserForm = ({
   user,
@@ -37,27 +44,24 @@ export const UserForm = ({
     if (editMode) {
       const { error } = await updateUser({
         id: user!.id,
+        role: data.role as UserRole,
       });
 
       if (error) {
-        return { error };
-      } else {
-        return {
-          message: "Pengguna berhasil diperbaharui",
-          error: null,
-        };
+        return { error, message: undefined };
       }
+      return { message: "Pengguna berhasil diperbaharui", error: null };
     } else {
       const { error } = await createUser({
         email: data.email as string,
         password: data.password as string,
+        role: data.role as UserRole,
       });
 
       if (error) {
-        return { error };
-      } else {
-        return { message: "Pengguna berhasil dibuat", error: null };
+        return { error, message: undefined };
       }
+      return { message: "Pengguna berhasil dibuat", error: null };
     }
   };
 
@@ -110,24 +114,30 @@ export const UserForm = ({
 
                 {!editMode && (
                   <Input
-                    isRequired={!editMode}
+                    isRequired
                     label="Password"
-                    placeholder={
-                      editMode
-                        ? "Kosongkan jika tidak ingin mengubah password"
-                        : "Masukkan password"
-                    }
+                    placeholder="Masukkan password"
                     type="password"
                     name="password"
                   />
                 )}
+
+                <Select
+                  isRequired
+                  label="Role"
+                  name="role"
+                  defaultSelectedKeys={[user?.role ?? "admin"]}
+                  items={ROLE_OPTIONS}>
+                  {(item) => (
+                    <SelectItem key={item.key}>{item.label}</SelectItem>
+                  )}
+                </Select>
               </ModalBody>
               <ModalFooter className="w-full">
                 <Button
                   color="default"
                   variant="light"
-                  onPress={onClose}
-                  type="submit">
+                  onPress={onClose}>
                   Batal
                 </Button>
                 <Button color="primary" type="submit" isLoading={isLoading}>

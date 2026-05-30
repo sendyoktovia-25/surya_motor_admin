@@ -185,7 +185,7 @@ export default function Laporan() {
       const columns = [
         "No",
         "Tanggal Keluar",
-        "Jenis Motor",
+        "Jenis Sepeda Motor",
         "No. Polisi",
         "Total Modal",
         "Harga Jual",

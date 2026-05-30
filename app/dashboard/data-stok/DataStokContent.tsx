@@ -37,7 +37,7 @@ import { StatusChip } from "./component/StatusChip";
 export const columns = [
   { name: "No.", uid: "no", sortable: false },
   { name: "No. Polisi", uid: "no_polisi", sortable: true },
-  { name: "Jenis Motor", uid: "kode", sortable: true },
+  { name: "Jenis Sepeda Motor", uid: "kode", sortable: true },
   { name: "Tahun Produksi", uid: "tahun_produksi", sortable: true },
   { name: "Warna", uid: "warna", sortable: true },
   { name: "STNK", uid: "stnk", sortable: true },
@@ -224,7 +224,7 @@ export default function DataStokContent({ page }: { page: number }) {
             classNames={{
               base: "w-full sm:max-w-[44%]",
             }}
-            placeholder="Kata kunci pencarian (No. polisi, Jenis Motor, Kode)"
+            placeholder="Kata kunci pencarian (No. polisi, Jenis Sepeda Motor, Kode)"
             startContent={<SearchSm className="text-default-400" />}
             value={filterValue}
             onClear={() => setFilterValue("")}
@@ -258,7 +258,7 @@ export default function DataStokContent({ page }: { page: number }) {
               startContent={<Plus />}
               as={Link}
               href="/dashboard/data-stok/tambah">
-              Tambah Motor
+              Tambah Sepeda Motor
             </Button>
           </div>
         </div>
@@ -319,7 +319,7 @@ export default function DataStokContent({ page }: { page: number }) {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">Data Stok Motor</h1>
+        <h1 className="text-3xl font-bold">Data Stok Sepeda Motor</h1>
       </div>
 
       <Table
@@ -386,7 +386,7 @@ export default function DataStokContent({ page }: { page: number }) {
           {(onClose) => (
             <>
               <ModalHeader className="pb-0 flex justify-between items-center">
-                <h2 className="text-2xl font-bold">Detail Motor</h2>
+                <h2 className="text-2xl font-bold">Detail Sepeda Motor</h2>
                 <StatusChip status={selectedItem?.status ?? ""} />
               </ModalHeader>
               <ModalBody>
@@ -394,7 +394,7 @@ export default function DataStokContent({ page }: { page: number }) {
                   defaultExpandedKeys={["history"]}
                   selectionMode="multiple"
                   className="p-0">
-                  <AccordionItem key="history" title="Histori Motor">
+                  <AccordionItem key="history" title="Riwayat Sepeda Motor">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="flex flex-col">
                         <span className="text-sm text-slate-600">
@@ -431,7 +431,7 @@ export default function DataStokContent({ page }: { page: number }) {
                     </div>
                   </AccordionItem>
 
-                  <AccordionItem key="info" title="Info Motor">
+                  <AccordionItem key="info" title="Info Sepeda Motor">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="flex flex-col">
                         <span className="text-sm text-slate-600">
@@ -441,7 +441,7 @@ export default function DataStokContent({ page }: { page: number }) {
                       </div>
                       <div className="flex flex-col">
                         <span className="text-sm text-slate-600">
-                          Jenis Motor
+                          Jenis Sepeda Motor
                         </span>
                         <span>
                           {selectedItem?.jenis_motor.kode} -{" "}
@@ -545,7 +545,7 @@ export default function DataStokContent({ page }: { page: number }) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Hapus Motor
+                Hapus Sepeda Motor
               </ModalHeader>
               <ModalBody>
                 <p>

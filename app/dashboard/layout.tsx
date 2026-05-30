@@ -1,10 +1,9 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
-import { Button, Link, Listbox, ListboxItem } from "@heroui/react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
+import { Button, Listbox, ListboxItem, Skeleton } from "@heroui/react";
 import { supabase } from "@/lib/supabase-client";
-import { nav } from "framer-motion/client";
 import {
   Home02,
   ShoppingCart02,
@@ -12,65 +11,43 @@ import {
   Calculator,
   File02,
   BarChart02,
-  User02,
   Users03,
 } from "@untitledui/icons";
+
+const PEMILIK_ONLY_ROUTES = ["/dashboard/laporan", "/dashboard/user"];
+
+const ALL_NAV_ITEMS = [
+  { href: "/dashboard/halaman-utama", label: "Halaman Utama", icon: Home02 },
+  { href: "/dashboard/jenis-motor", label: "Jenis Sepeda Motor", icon: Settings02 },
+  { href: "/dashboard/data-stok", label: "Data Stok Sepeda Motor", icon: ShoppingCart02 },
+  { href: "/dashboard/kalkulator", label: "Kalkulator Kredit", icon: Calculator },
+  { href: "/dashboard/transaksi", label: "Pencatatan Transaksi", icon: File02 },
+  { href: "/dashboard/laporan", label: "Laporan Keuangan", icon: BarChart02, pemilikOnly: true },
+  { href: "/dashboard/user", label: "Manajemen Pengguna", icon: Users03, pemilikOnly: true },
+];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [user, setUser] = useState<any | null>(null);
-  const auth = supabase().auth;
+  const [email, setEmail] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
+  const auth = useMemo(() => supabase().auth, []);
 
-  const isActive = (path: string) => pathname === path;
   const hideNavbar = pathname === "/dashboard/login";
+  const isActive = (path: string) => pathname.startsWith(path);
 
-  const navItems = [
-    {
-      href: "/dashboard/halaman-utama",
-      label: "Halaman Utama",
-      icon: Home02,
-    },
-    {
-      href: "/dashboard/jenis-motor",
-      label: "Jenis Motor",
-      icon: Settings02,
-    },
-    {
-      href: "/dashboard/data-stok",
-      label: "Data Stok Motor",
-      icon: ShoppingCart02,
-    },
-    {
-      href: "/dashboard/kalkulator",
-      label: "Kalkulator Kredit",
-      icon: Calculator,
-    },
-    {
-      href: "/dashboard/transaksi",
-      label: "Pencatatan Transaksi",
-      icon: File02,
-    },
-    {
-      href: "/dashboard/laporan",
-      label: "Laporan Keuangan",
-      icon: BarChart02,
-    },
-    {
-      href: "/dashboard/user",
-      label: "Manajemen Pengguna",
-      icon: Users03,
-    },
-  ];
+  const navItems = role !== null
+    ? ALL_NAV_ITEMS.filter((item) => !item.pemilikOnly || role === "pemilik")
+    : [];
 
   useEffect(() => {
     const fetchUser = async () => {
-      const {
-        data: { user },
-      } = await auth.getUser();
+      const { data: { user } } = await auth.getUser();
       if (user) {
-        setUser(user);
+        setEmail(user.email ?? null);
+        const userRole = (user.user_metadata?.role as string) || "pemilik";
+        setRole(userRole);
       } else {
         router.replace("/dashboard/login");
       }
@@ -78,6 +55,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
     fetchUser();
   }, [auth, router]);
+
+  useEffect(() => {
+    if (role !== null && role !== "pemilik" && PEMILIK_ONLY_ROUTES.some((r) => pathname.startsWith(r))) {
+      router.replace("/dashboard/halaman-utama");
+    }
+  }, [role, pathname, router]);
 
   const handleLogout = async () => {
     const response = await auth.signOut();
@@ -89,19 +72,23 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="h-screen flex">
       {!hideNavbar && (
-        <div className=" flex flex-col border-r border-slate-200">
+        <div className="flex flex-col border-r border-slate-200">
           <div className="p-4 border-b border-slate-200">
             <h1 className="text-2xl font-bold">Surya Jaya Motor</h1>
-            <p className="text-sm mt-1">{user?.email ?? "-"}</p>
+            {email !== null ? (
+              <p className="text-sm mt-1">{email}</p>
+            ) : (
+              <Skeleton className="rounded mt-2 h-4 w-40" />
+            )}
           </div>
 
-          <Listbox className="flex-1 p-4">
+          <Listbox className="flex-1 p-4" selectionMode="none">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <ListboxItem
                   key={item.href}
-                  href={item.href}
+                  onPress={() => router.push(item.href)}
                   className={`p-2 py-3 ${isActive(item.href) ? "text-primary" : ""}`}
                   startContent={<Icon className="w-5 h-5" />}>
                   {item.label}
@@ -110,12 +97,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             })}
           </Listbox>
 
-          {/* Logout Button */}
-          <div className="p-4 border-t border-slate-200 space-y-2">
+          <div className="p-4 border-t border-slate-200">
             <Button
               fullWidth
               color="danger"
-              onClick={handleLogout}
+              onPress={handleLogout}
               className="font-semibold">
               Keluar
             </Button>

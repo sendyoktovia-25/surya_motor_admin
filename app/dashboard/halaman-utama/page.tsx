@@ -150,7 +150,7 @@ export default function HalamanUtama() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card shadow="none" className="border border-slate-200">
               <CardBody className="gap-2">
-                <p className="text-sm text-default-500">Total Motor</p>
+                <p className="text-sm text-default-500">Total Sepeda Motor</p>
                 <p className="text-3xl font-bold">{metrics.totalMotor}</p>
               </CardBody>
             </Card>
@@ -196,7 +196,7 @@ export default function HalamanUtama() {
             </CardHeader>
             <Table aria-label="Tabel motor terbaru" removeWrapper>
               <TableHeader>
-                <TableColumn>Jenis Motor</TableColumn>
+                <TableColumn>Jenis Sepeda Motor</TableColumn>
                 <TableColumn>No. Polisi</TableColumn>
                 <TableColumn>Warna</TableColumn>
                 <TableColumn>STNK</TableColumn>

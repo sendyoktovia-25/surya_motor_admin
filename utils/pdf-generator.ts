@@ -1,7 +1,8 @@
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+import autoTable, { ColumnInput, Styles } from "jspdf-autotable";
 
 interface PdfHeaderConfig {
+  title?: string;
   subtitle?: string;
   dateRange?: {
     from: string;
@@ -14,6 +15,7 @@ export const generatePdfWithHeader = async (
   config: PdfHeaderConfig,
   tableData: string[][],
   columns: string[],
+  columnStyles?: Record<number, Partial<Styles>>,
 ) => {
   const doc = new jsPDF({
     orientation: "portrait",
@@ -65,7 +67,7 @@ export const generatePdfWithHeader = async (
   const titleWidth = doc.getTextWidth(titleText);
   doc.text(titleText, (pageWidth - titleWidth) / 2, centerY - 4);
 
-  const taglineText = "Laporan Keuangan";
+  const taglineText = config.title ?? "Laporan Keuangan";
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
   doc.setFont("helvetica", "normal");
@@ -113,7 +115,7 @@ export const generatePdfWithHeader = async (
     alternateRowStyles: {
       fillColor: [245, 247, 250] as [number, number, number],
     },
-    columnStyles: {
+    columnStyles: columnStyles ?? {
       0: { halign: "center" as const, cellWidth: 12 },
     },
   });

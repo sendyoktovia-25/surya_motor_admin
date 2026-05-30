@@ -101,7 +101,7 @@ export default function JenisMotorPage() {
         removeWrapper
         topContent={
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold">Jenis Motor</h1>
+            <h1 className="text-2xl font-bold">Jenis Sepeda Motor</h1>
             <Button color="primary" onClick={onAddOpen} className="self-end">
               <Plus className="w-4 h-4" />
               <p>Tambah</p>
@@ -110,7 +110,7 @@ export default function JenisMotorPage() {
         }>
         <TableHeader>
           <TableColumn>Kode</TableColumn>
-          <TableColumn>Jenis Motor</TableColumn>
+          <TableColumn>Jenis Sepeda Motor</TableColumn>
           <TableColumn align="center">Aksi</TableColumn>
         </TableHeader>
         <TableBody
@@ -188,7 +188,7 @@ export default function JenisMotorPage() {
                 }
               }}>
               <ModalHeader className="flex flex-col gap-1">
-                {selectedMotor ? "Edit Jenis Motor" : "Tambah Jenis Motor"}
+                {selectedMotor ? "Edit Jenis Sepeda Motor" : "Tambah Jenis Sepeda Motor"}
               </ModalHeader>
               <ModalBody className="flex flex-col gap-4 w-full">
                 <Input
@@ -202,8 +202,8 @@ export default function JenisMotorPage() {
                   isRequired
                   defaultValue={selectedMotor?.merk || ""}
                   name="merk"
-                  label="Jenis Motor"
-                  placeholder="Masukkan jenis motor"
+                  label="Jenis Sepeda Motor"
+                  placeholder="Masukkan jenis sepeda motor"
                 />
               </ModalBody>
               <ModalFooter className="w-full">
@@ -224,7 +224,7 @@ export default function JenisMotorPage() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Hapus Jenis Motor
+                Hapus Jenis Sepeda Motor
               </ModalHeader>
               <ModalBody>
                 <p>
