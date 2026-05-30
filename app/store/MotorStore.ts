@@ -16,7 +16,7 @@ export type Motor = {
   harga_modal: number;
   biaya_servis: number;
   status: "tersedia" | "negosiasi" | "terjual";
-  durasi_pemakaian: number;
+  lama_pemakaian: number;
   tahun_produksi: number;
   jarak_tempuh_km: number;
   kondisi_mesin: string;

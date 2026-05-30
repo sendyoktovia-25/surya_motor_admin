@@ -413,7 +413,7 @@ export default function DataStokContent({ page }: { page: number }) {
                           Lama Pemakaian
                         </span>
                         <span>
-                          {selectedItem?.durasi_pemakaian ?? "-"} bulan
+                          {selectedItem?.lama_pemakaian ?? "-"} bulan
                         </span>
                       </div>
                       <div className="flex flex-col">

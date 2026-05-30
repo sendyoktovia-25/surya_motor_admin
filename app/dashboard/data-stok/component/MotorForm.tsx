@@ -300,14 +300,14 @@ export const MotorForm = ({ defaultValue }: { defaultValue: Motor | null }) => {
           <CardBody className="p-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <NumberInput
-                defaultValue={defaultValue?.durasi_pemakaian}
+                defaultValue={defaultValue?.lama_pemakaian}
                 classNames={{
                   inputWrapper: "shadow-none",
                 }}
-                label="Durasi Pemakaian (bulan)"
+                label="Lama Pemakaian (bulan)"
                 type="number"
-                placeholder="Masukkan durasi pemakaian"
-                name="durasi_pemakaian"
+                placeholder="Masukkan lama pemakaian"
+                name="lama_pemakaian"
                 isRequired
               />
 
@@ -345,7 +345,7 @@ export const MotorForm = ({ defaultValue }: { defaultValue: Motor | null }) => {
 
         {/* Action Buttons */}
         <div className="flex justify-end gap-3 w-full">
-          <Button onClick={() => router.push("/dashboard/data-stok")}>
+          <Button onPress={() => router.push("/dashboard/data-stok")}>
             Batal
           </Button>
           <Button color="primary" type="submit" isLoading={isLoading}>

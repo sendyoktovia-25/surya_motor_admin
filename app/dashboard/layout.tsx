@@ -18,12 +18,34 @@ const PEMILIK_ONLY_ROUTES = ["/dashboard/laporan", "/dashboard/user"];
 
 const ALL_NAV_ITEMS = [
   { href: "/dashboard/halaman-utama", label: "Halaman Utama", icon: Home02 },
-  { href: "/dashboard/jenis-motor", label: "Jenis Sepeda Motor", icon: Settings02 },
-  { href: "/dashboard/data-stok", label: "Data Stok Sepeda Motor", icon: ShoppingCart02 },
-  { href: "/dashboard/kalkulator", label: "Kalkulator Kredit", icon: Calculator },
+  {
+    href: "/dashboard/jenis-motor",
+    label: "Jenis Sepeda Motor",
+    icon: Settings02,
+  },
+  {
+    href: "/dashboard/data-stok",
+    label: "Data Stok Sepeda Motor",
+    icon: ShoppingCart02,
+  },
+  {
+    href: "/dashboard/kalkulator",
+    label: "Kalkulator Kredit",
+    icon: Calculator,
+  },
   { href: "/dashboard/transaksi", label: "Pencatatan Transaksi", icon: File02 },
-  { href: "/dashboard/laporan", label: "Laporan Keuangan", icon: BarChart02, pemilikOnly: true },
-  { href: "/dashboard/user", label: "Manajemen Pengguna", icon: Users03, pemilikOnly: true },
+  {
+    href: "/dashboard/laporan",
+    label: "Laporan Keuangan",
+    icon: BarChart02,
+    pemilikOnly: true,
+  },
+  {
+    href: "/dashboard/user",
+    label: "Manajemen Pengguna",
+    icon: Users03,
+    pemilikOnly: true,
+  },
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -37,27 +59,36 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const hideNavbar = pathname === "/dashboard/login";
   const isActive = (path: string) => pathname.startsWith(path);
 
-  const navItems = role !== null
-    ? ALL_NAV_ITEMS.filter((item) => !item.pemilikOnly || role === "pemilik")
-    : [];
+  const navItems =
+    role !== null
+      ? ALL_NAV_ITEMS.filter((item) => !item.pemilikOnly || role === "pemilik")
+      : [];
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await auth.getUser();
-      if (user) {
-        setEmail(user.email ?? null);
-        const userRole = (user.user_metadata?.role as string) || "pemilik";
+    const {
+      data: { subscription },
+    } = auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setEmail(session.user.email ?? null);
+        const userRole =
+          (session.user.user_metadata?.role as string) || "pemilik";
         setRole(userRole);
       } else {
+        setEmail(null);
+        setRole(null);
         router.replace("/dashboard/login");
       }
-    };
+    });
 
-    fetchUser();
+    return () => subscription.unsubscribe();
   }, [auth, router]);
 
   useEffect(() => {
-    if (role !== null && role !== "pemilik" && PEMILIK_ONLY_ROUTES.some((r) => pathname.startsWith(r))) {
+    if (
+      role !== null &&
+      role !== "pemilik" &&
+      PEMILIK_ONLY_ROUTES.some((r) => pathname.startsWith(r))
+    ) {
       router.replace("/dashboard/halaman-utama");
     }
   }, [role, pathname, router]);
@@ -82,20 +113,28 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             )}
           </div>
 
-          <Listbox className="flex-1 p-4" selectionMode="none">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <ListboxItem
-                  key={item.href}
-                  onPress={() => router.push(item.href)}
-                  className={`p-2 py-3 ${isActive(item.href) ? "text-primary" : ""}`}
-                  startContent={<Icon className="w-5 h-5" />}>
-                  {item.label}
-                </ListboxItem>
-              );
-            })}
-          </Listbox>
+          {role === null ? (
+            <div className="flex-1 p-4 flex flex-col gap-2">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Skeleton key={i} className="rounded h-10 w-full" />
+              ))}
+            </div>
+          ) : (
+            <Listbox className="flex-1 p-4" selectionMode="none">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <ListboxItem
+                    key={item.href}
+                    onPress={() => router.push(item.href)}
+                    className={`p-2 py-3 ${isActive(item.href) ? "text-primary" : ""}`}
+                    startContent={<Icon className="w-5 h-5" />}>
+                    {item.label}
+                  </ListboxItem>
+                );
+              })}
+            </Listbox>
+          )}
 
           <div className="p-4 border-t border-slate-200">
             <Button
