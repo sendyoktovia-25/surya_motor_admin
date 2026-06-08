@@ -34,18 +34,6 @@ function getDaysLeftColor(daysLeft: number | null) {
   return "success";
 }
 
-const statusColorMap = {
-  tersedia: "success",
-  negosiasi: "warning",
-  terjual: "danger",
-} as const;
-
-const statusLabelMap = {
-  tersedia: "Tersedia",
-  negosiasi: "Negosiasi",
-  terjual: "Terjual",
-} as const;
-
 export default function HalamanUtama() {
   const { getAll: getMotors } = useMotorStore();
   const { get: getTransaksi } = useTransaksiStore();

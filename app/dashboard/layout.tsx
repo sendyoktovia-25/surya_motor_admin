@@ -1,7 +1,13 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import {
+  type ElementType,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Button, Listbox, ListboxItem, Skeleton } from "@heroui/react";
 import { supabase } from "@/lib/supabase-client";
 import {
@@ -14,39 +20,62 @@ import {
   Users03,
 } from "@untitledui/icons";
 
-const PEMILIK_ONLY_ROUTES = ["/dashboard/laporan", "/dashboard/user"];
+type NavRole = "all" | "admin" | "pemilik";
 
-const ALL_NAV_ITEMS = [
-  { href: "/dashboard/halaman-utama", label: "Halaman Utama", icon: Home02 },
+const ALL_NAV_ITEMS: {
+  href: string;
+  label: string;
+  icon: ElementType;
+  role: NavRole;
+}[] = [
+  {
+    href: "/dashboard/halaman-utama",
+    label: "Halaman Utama",
+    icon: Home02,
+    role: "all",
+  },
   {
     href: "/dashboard/jenis-motor",
     label: "Jenis Sepeda Motor",
     icon: Settings02,
+    role: "all",
   },
   {
     href: "/dashboard/data-stok",
     label: "Data Stok Sepeda Motor",
     icon: ShoppingCart02,
+    role: "all",
   },
   {
     href: "/dashboard/kalkulator",
     label: "Kalkulator Kredit",
     icon: Calculator,
+    role: "all",
   },
-  { href: "/dashboard/transaksi", label: "Pencatatan Transaksi", icon: File02 },
+  {
+    href: "/dashboard/transaksi",
+    label: "Pencatatan Transaksi",
+    icon: File02,
+    role: "all",
+  },
   {
     href: "/dashboard/laporan",
     label: "Laporan Keuangan",
     icon: BarChart02,
-    pemilikOnly: true,
+    role: "pemilik",
   },
   {
     href: "/dashboard/user",
     label: "Manajemen Pengguna",
     icon: Users03,
-    pemilikOnly: true,
+    role: "pemilik",
   },
 ];
+
+function canAccess(itemRole: NavRole, userRole: string): boolean {
+  if (itemRole === "all") return true;
+  return userRole === itemRole;
+}
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -61,7 +90,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   const navItems =
     role !== null
-      ? ALL_NAV_ITEMS.filter((item) => !item.pemilikOnly || role === "pemilik")
+      ? ALL_NAV_ITEMS.filter((item) => canAccess(item.role, role))
       : [];
 
   useEffect(() => {
@@ -84,12 +113,18 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   }, [auth, router]);
 
   useEffect(() => {
-    if (
-      role !== null &&
-      role !== "pemilik" &&
-      PEMILIK_ONLY_ROUTES.some((r) => pathname.startsWith(r))
-    ) {
-      router.replace("/dashboard/halaman-utama");
+    if (role !== null) {
+      const restricted = ALL_NAV_ITEMS.filter(
+        (item) => item.role !== "all",
+      ).map((item) => item.href);
+      const blocked =
+        restricted.some((r) => pathname.startsWith(r)) &&
+        !canAccess(
+          ALL_NAV_ITEMS.find((item) => pathname.startsWith(item.href))?.role ??
+            "all",
+          role,
+        );
+      if (blocked) router.replace("/dashboard/halaman-utama");
     }
   }, [role, pathname, router]);
 
