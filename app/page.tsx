@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const PHONE_NUMBER = "6282286515176";
 const WHATSAPP_LINK = `https://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=Halo%20saya%20minat%20motor%20bekas%20di%20Batam`;
 
+// this data is just for demo, replace with real data from backend or CMS in production
 const TESTIMONIALS = [
   {
     initial: "A",
@@ -739,8 +740,8 @@ export default function Home() {
             Siap Cari Sepeda Motor Impian Anda?
           </h2>
           <p className="text-gray-900/70 mb-8">
-            Hubungi kami sekarang dan temukan sepeda motor bekas terbaik di Batam
-            dengan harga terjangkau.
+            Hubungi kami sekarang dan temukan sepeda motor bekas terbaik di
+            Batam dengan harga terjangkau.
           </p>
           <a
             href={WHATSAPP_LINK}
