@@ -441,6 +441,10 @@ export default function TransaksiContent({ page }: { page: number }) {
                         <span className="text-sm text-slate-600">No HP</span>
                         <span>{selectedItem?.pembeli?.no_hp}</span>
                       </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm text-slate-600">No KTP</span>
+                        <span>{selectedItem?.pembeli?.no_ktp}</span>
+                      </div>
                       <div className="flex flex-col col-span-1 md:col-span-2">
                         <span className="text-sm text-slate-600 mb-2">
                           Foto KTP

@@ -54,6 +54,19 @@ const PembeliForm = ({
       />
 
       <Input
+        label="No. KTP"
+        placeholder="Masukkan nomor KTP"
+        name="no_ktp"
+        isRequired
+        validate={(value) => {
+          if (!value) return "Nomor KTP wajib diisi";
+          if (!/^[0-9]+$/.test(value)) return "Hanya boleh angka 0–9";
+          return true;
+        }}
+        defaultValue={transaksi?.pembeli?.no_ktp || ""}
+      />
+
+      <Input
         label="Alamat"
         placeholder="Jalan, RT/RW, Kelurahan, Kecamatan, Kota, Provinsi"
         name="alamat"

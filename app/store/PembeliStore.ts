@@ -5,6 +5,7 @@ export type Pembeli = {
   nama: string;
   alamat: string;
   no_hp: string;
+  no_ktp: string;
   foto_ktp: string | null;
 };
 
@@ -29,6 +30,7 @@ export const usePembeliStore = () => {
         nama: payload.nama,
         alamat: payload.alamat,
         no_hp: payload.no_hp,
+        no_ktp: payload.no_ktp,
         foto_ktp: imageData?.publicUrl,
       })
       .select()
@@ -43,6 +45,7 @@ export const usePembeliStore = () => {
       nama: payload.nama,
       alamat: payload.alamat,
       no_hp: payload.no_hp,
+      no_ktp: payload.no_ktp,
     };
 
     if (payload.foto_ktp instanceof File) {
